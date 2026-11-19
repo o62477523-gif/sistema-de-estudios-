@@ -1,0 +1,79 @@
+schema: spec-driven
+
+context: |
+  Proyecto: Sistema Web de Preparación y Simulacros para Exámenes de Admisión Preuniversitaria.
+  Equipo: Palomino Barboza Arnold Jerson / Zabaleta Saez Ruben Abdiel.
+
+  Idioma:
+  - Todos los artefactos (proposal, specs, design, tasks) se escriben en español.
+  - Las cabeceras estructurales de OpenSpec y las palabras clave normativas (SHALL, MUST) se mantienen en inglés.
+
+  Stack obligatorio:
+  - Frontend: HTML5, CSS3 Vanilla (variables CSS, Flexbox, Grid) y JavaScript Vanilla ES6+ (ES Modules, fetch, sin frameworks).
+  - Backend: Node.js con Express, JWT y bcrypt.
+  - Base de datos: SQLite 3 con PRAGMA foreign_keys = ON.
+  - Integración externa: API REST de IA generativa para explicaciones.
+
+  Arquitectura:
+  - 3 capas desacopladas: presentación (frontend), negocio (Express: routes, controllers, services, middlewares) y persistencia (SQLite).
+  - API REST con respuestas JSON estandarizadas: {"status":"success","data":...} y {"status":"error","message":"..."}.
+  - Estructura backend: src/config, src/controllers, src/middlewares, src/models, src/routes, src/services, src/app.js.
+
+  Reglas de negocio críticas:
+  - La calificación se calcula únicamente en el backend; el cliente solo envía examen_id y las opciones marcadas.
+  - Ponderación según la universidad objetivo (ej. UNMSM: correcta +20, incorrecta -1.125, en blanco 0).
+  - El cronómetro y las marcaciones se autoguardan en localStorage.
+  - Roles: estudiante y administrador.
+
+  Convenciones:
+  - Archivos JS/HTML/CSS en kebab-case o snake_case; variables/funciones camelCase; clases PascalCase; constantes UPPER_SNAKE_CASE.
+  - Tablas y columnas SQLite en snake_case y plural.
+  - Rutas REST en kebab-case y plural (/api/examenes).
+  - Clases CSS en kebab-case estilo BEM.
+  - Commits con Conventional Commits en español o inglés neutro.
+  - Async/await con try/catch; consultas SQL siempre preparadas.
+
+  Seguridad (cero tolerancia):
+  - Secretos y JWT_SECRET solo en .env, nunca en el repositorio.
+  - Contraseñas con bcrypt (mínimo 10 rondas).
+  - Prevención de XSS usando textContent o escape al renderizar datos.
+  - Sanitización de entradas y consultas preparadas contra inyección SQL.
+
+  UI/UX:
+  - Paleta: primario #36BCFF, secundario #FFF836, terciario #FF6B8B, neutro #8C8C7A, fondo #0F172A.
+  - Tipografías: Varsity (títulos), College Slab (subtítulos), Golden Varsity (menú), Inter (cuerpo).
+  - Responsive: móvil <768px, tablet 768-1023px, escritorio >=1024px.
+  - No usar estilos inline; respetar la guía de diseño y los tokens CSS.
+
+  Documentación de referencia (fuente de verdad del dominio):
+  - doucumentos/documento_de_requerimientos_de_software_srs.md (RF-01..RF-13 y RNF-01..RNF-09).
+  - doucumentos/documento_de_arquitectura_del_sistema.md (SAD).
+  - doucumentos/est_ndar_de_desarrollo_y_buenas_pr_cticas.md (convenciones).
+  - doucumentos/gu_a_de_dise_o_ui_ux_y_sistema_de_estilos.md (UI/UX).
+  - openspec/specs/ contiene las especificaciones vivas por capacidad.
+  - Cita los códigos RF-XX/RNF-XX en los requerimientos para mantener trazabilidad.
+
+rules:
+  proposal:
+    - Cita los códigos RF/RNF afectados y respeta el alcance del SRS.
+    - Si el cambio contradice un documento de referencia, indícalo en Impact.
+  specs:
+    - Usa SHALL/MUST para requisitos normativos y escenarios WHEN/THEN verificables.
+    - Un comportamiento observable por requisito; descripción de máximo 500 caracteres.
+    - Cita el código RF/RNF de origen cuando exista.
+  design:
+    - Documenta cada decisión con su justificación y las alternativas consideradas.
+    - Respeta la arquitectura de 3 capas y el stack; justifica cualquier desviación.
+  tasks:
+    - Cada tarea es un checkbox "- [ ] X.Y ..." con su criterio de verificación.
+    - Incluye pruebas y documentación dentro del grupo de trabajo que las requiere.
+
+operations:
+  apply:
+    guidance:
+      - Antes de marcar una tarea como completada, verifica el criterio indicado en ella.
+      - Ejecuta "openspec validate --all" al terminar y corrige los hallazgos.
+      - No agregues dependencias ni frameworks fuera del stack sin aprobación.
+  archive:
+    guidance:
+      - Resume los requerimientos entregados y actualiza la documentación de referencia si cambió el alcance.

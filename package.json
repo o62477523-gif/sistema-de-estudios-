@@ -1,0 +1,26 @@
+{
+  "name": "sistema-de-estudios",
+  "version": "1.0.0",
+  "description": "Sistema Web de Preparación y Simulacros para Exámenes de Admisión Preuniversitaria",
+  "main": "src/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "test": "node --test",
+    "spec:validate": "openspec validate --all",
+    "spec:doctor": "openspec doctor",
+    "spec:list": "openspec list",
+    "spec:view": "openspec view"
+  },
+  "keywords": [
+    "spec-driven-development",
+    "openspec",
+    "preuniversitario",
+    "simulacros",
+    "express",
+    "sqlite3"
+  ],
+  "author": "Palomino Barboza Arnold Jerson / Zabaleta Saez Ruben Abdiel",
+  "license": "ISC"
+}
